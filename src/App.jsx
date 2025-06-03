@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
+import './css/App.css'
 import ImgBox from './components/ImgBox'
 
 function App() {
@@ -9,9 +9,7 @@ function App() {
 
   return (
     <>
-    <div>
       <ImgBox />
-    </div>
     </>
   )
 }

@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import "../css/ImgBox.css";
+import React, { useState, useRef } from 'react';
 
 const ImgBox = () => {
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
+  const inputRef = useRef(null);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -16,13 +18,25 @@ const ImgBox = () => {
     }
   };
 
+  const handleBoxClick = () => {
+    if (inputRef.current) {
+      inputRef.current.click();
+    }
+  };
+
   return (
-    <div style={{ border: '1px solid #ccc', padding: '20px', textAlign: 'center' }}>
+    <div className="img-box" onClick={handleBoxClick} style={{ cursor: "pointer" }}>
       <h3>Upload an Image</h3>
-      <input type="file" accept="image/*" onChange={handleImageChange} />
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleImageChange}
+        ref={inputRef}
+        style={{ display: "none" }}
+      />
       {preview && (
-        <div style={{ marginTop: '20px' }}>
-          <img src={preview} alt="Preview" style={{ maxWidth: '100%', maxHeight: '300px' }} />
+        <div className="imgbox-preview">
+          <img src={preview} alt="Preview" className="imgbox-image" />
         </div>
       )}
     </div>
