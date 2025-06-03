@@ -6,7 +6,7 @@ import tempfile
 import torch
 
 app = Flask(__name__)
-CORS(app, origins=["*"])  # Enable CORS for all origins
+CORS(app, origins=["https://img-caption-generator-vercel.vercel.app/"])  # Restrict in production
 
 # Load BLIP processor and model once at startup
 processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base", use_fast=False)
@@ -30,5 +30,4 @@ def caption():
 
         return jsonify({"caption": caption})
 
-if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=8080, debug=True)
+# Do NOT use app.run() in production; use gunicorn or another WSGI server
