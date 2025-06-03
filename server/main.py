@@ -9,7 +9,7 @@ app = Flask(__name__)
 CORS(app, origins=["*"])  # Enable CORS for all origins
 
 # Load BLIP processor and model once at startup
-processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
+processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base", use_fast=False)
 model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base")
 
 @app.route('/api/caption', methods=['POST'])

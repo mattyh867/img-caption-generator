@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { detectObjects } from "../services/api";
+import { getCaption } from "../services/api";
 
 const CaptionBox = ({ imageFile }) => {
-  const [labels, setLabels] = useState([]);
+  const [caption, setCaption] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleDetectObjects = async () => {
-    setLabels([]);
+  const handleGetCaption = async () => {
+    setCaption("");
     setError("");
     if (!imageFile) {
       setError("No image selected.");
@@ -15,22 +15,22 @@ const CaptionBox = ({ imageFile }) => {
     }
     setLoading(true);
     try {
-      const detectedLabels = await detectObjects(imageFile);
-      setLabels(detectedLabels);
+      const result = await getCaption(imageFile);
+      setCaption(result);
     } catch (err) {
-      setError("Failed to detect objects.");
+      setError("Failed to generate caption.");
     }
     setLoading(false);
   };
 
   return (
     <div className="img-box">
-      <button onClick={handleDetectObjects} disabled={loading || !imageFile}>
-        {loading ? "Detecting..." : "Detect Objects"}
+      <button onClick={handleGetCaption} disabled={loading || !imageFile}>
+        {loading ? "Generating..." : "Generate Caption"}
       </button>
-      {labels.length > 0 && (
+      {caption && (
         <div className="caption">
-          Detected objects: {labels.join(", ")}
+          Caption: {caption}
         </div>
       )}
       {error && <div style={{ color: "red" }}>{error}</div>}
