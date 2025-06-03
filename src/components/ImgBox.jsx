@@ -1,15 +1,14 @@
 import "../css/ImgBox.css";
 import React, { useState, useRef } from 'react';
 
-const ImgBox = () => {
-  const [image, setImage] = useState(null);
+const ImgBox = ({ setImageFile }) => {
   const [preview, setPreview] = useState(null);
   const inputRef = useRef(null);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setImage(file);
+      setImageFile(file); // Pass file up to App
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreview(reader.result);

@@ -1,20 +1,16 @@
-// This code uses fetch to call the Hugging Face Inference API for BLIP image captioning
+// This code uses fetch to call the Hugging Face Inference API for object detection
+const API_URL = "https://api-inference.huggingface.co/models/facebook/detr-resnet-50";
+const API_KEY = import.meta.env.VITE_HUGGINGFACE_API_KEY; // Set this in your .env file
 
-const API_URL = "https://api-inference.huggingface.co/models/Salesforce/blip-image-captioning-base";
-
-// It's best to store your API key in an environment variable for security
-const API_KEY = import.meta.env.VITE_HUGGINGFACE_API_KEY;
-
-export async function getCaption(file) {
+export async function detectObjects(file) {
   const headers = {
     Authorization: `Bearer ${API_KEY}`,
-    Accept: "application/json"
   };
 
   const response = await fetch(API_URL, {
     method: "POST",
     headers,
-    body: file
+    body: file, // send the image file directly as the body
   });
 
   if (!response.ok) {
@@ -22,8 +18,12 @@ export async function getCaption(file) {
   }
 
   const result = await response.json();
-  if (Array.isArray(result) && result[0]?.generated_text) {
-    return result[0].generated_text;
+  // The result is an array of detected objects with 'label' and 'score'
+  if (Array.isArray(result) && result.length > 0) {
+    // Return an array of labels (unique)
+    const labels = [...new Set(result.map(obj => obj.label))];
+    return labels;
   }
-  throw new Error("No caption generated");
+  throw new Error(result.error || "No objects detected");
 }
+

@@ -1,15 +1,15 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './css/App.css'
 import ImgBox from './components/ImgBox'
+import CaptionBox from './components/CaptionBox'
+import './css/App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [imageFile, setImageFile] = useState(null);
 
   return (
     <>
-      <ImgBox />
+      <ImgBox setImageFile={setImageFile} />
+      <CaptionBox imageFile={imageFile} />
     </>
   )
 }
