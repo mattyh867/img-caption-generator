@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://img-caption-generator-production.up.railway.app"; // Change to your live backend URL
+const API_URL = "https://img-caption-generator-production.up.railway.app/api/caption";
 
 export async function getCaption(file) {
   const formData = new FormData();
