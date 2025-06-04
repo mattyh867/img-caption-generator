@@ -31,5 +31,5 @@ def caption():
         return jsonify({"caption": caption})
 
 # Do NOT use app.run() in production; use gunicorn or another WSGI server
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080)
+# if __name__ == "__main__":
+#     app.run(host="0.0.0.0", port=8080)
