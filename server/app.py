@@ -6,7 +6,7 @@ import tempfile
 import torch
 
 app = Flask(__name__)
-CORS(app, origins=["https://img-caption-generator-vercel.vercel.app/"])  # Restrict in production
+CORS(app, origins=["https://img-caption-generator-vercel.vercel.app"])  # Restrict in production
 
 # Load BLIP processor and model once at startup
 processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base", use_fast=False)
